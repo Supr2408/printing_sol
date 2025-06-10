@@ -2101,7 +2101,7 @@ method: 'POST',
         elements.saveEditedPdf.addEventListener('click', async () => {
     elements.progressContainer.style.display = 'block';
     elements.progressFill.style.width = '0%';
-    elements.progressText.textContent = 'Generating PDF: 100%';
+    elements.progressText.textContent = 'Generating PDF: 0%';
     elements.saveEditedPdf.disabled = true;
 
     try {
@@ -2114,93 +2114,71 @@ method: 'POST',
 
         const pageWidth = currentLayout === 'landscape' ? 297 : 210;
         const pageHeight = currentLayout === 'landscape' ? 210 : 297;
-
-        const cols = Math.ceil(Math.sqrt(currentPagesPerSheet));
-        const rows = Math.ceil(currentPagesPerSheet / cols);
-
+        
+        let cols = Math.ceil(Math.sqrt(currentPagesPerSheet));
+        let rows = Math.ceil(currentPagesPerSheet / cols);
+        
         const cellWidth = pageWidth / cols;
         const cellHeight = pageHeight / rows;
-
+        
         let processed = 0;
         const total = pages.length;
 
-       for (let i = 0; i < pages.length; i += currentPagesPerSheet) {
-    if (i > 0) doc.addPage();
-
-    const chunk = pages.slice(i, i + currentPagesPerSheet);
-
-    for (let j = 0; j < chunk.length; j++) {
-        const page = await pdfDoc.getPage(chunk[j]);
-        const renderScale = 10.0;
-        const viewport = page.getViewport({ scale: renderScale });
-
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-
-        await page.render({
-            canvasContext: context,
-            viewport: viewport
-        }).promise;
-
-        const imgData = canvas.toDataURL('image/png'); // High-res PNG
-
-        // Target output page dimensions in mm
-        const pageWidth = currentLayout === 'landscape' ? 297 : 210;
-        const pageHeight = currentLayout === 'landscape' ? 210 : 297;
-
-        const cols = Math.ceil(Math.sqrt(currentPagesPerSheet));
-        const rows = Math.ceil(currentPagesPerSheet / cols);
-        const cellWidth = pageWidth / cols;
-        const cellHeight = pageHeight / rows;
-
-        // Real pixel size of one A4 page at 96 DPI:
-        const dpi = 96;
-        const pxPerMm = dpi / 25.4;
-        const targetPxWidth = cellWidth * pxPerMm;
-        const targetPxHeight = cellHeight * pxPerMm;
-
-        const imgPixelWidth = canvas.width;
-        const imgPixelHeight = canvas.height;
-
-        const widthScale = targetPxWidth / imgPixelWidth;
-        const heightScale = targetPxHeight / imgPixelHeight;
-        const finalScale = Math.min(widthScale, heightScale) * 0.95;
-
-        const displayWidth = (imgPixelWidth / pxPerMm) * finalScale;
-        const displayHeight = (imgPixelHeight / pxPerMm) * finalScale;
-
-        const col = j % cols;
-        const row = Math.floor(j / cols);
-        const x = col * cellWidth + (cellWidth - displayWidth) / 2;
-        const y = row * cellHeight + (cellHeight - displayHeight) / 2;
-
-        doc.addImage(imgData, 'PNG', x, y, displayWidth, displayHeight);
-
-        processed++;
-        const progress = Math.round((processed / total) * 100);
-        elements.progressFill.style.width = `${progress}%`;
-        elements.progressText.textContent = `Generating PDF: ${progress}%`;
-    }
-}
-
+        for (let i = 0; i < pages.length; i += currentPagesPerSheet) {
+            if (i > 0) {
+                doc.addPage();
+            }
+            
+            const chunk = pages.slice(i, i + currentPagesPerSheet);
+            
+            for (let j = 0; j < chunk.length; j++) {
+                const page = await pdfDoc.getPage(chunk[j]);
+                const viewport = page.getViewport({ scale: 1 });
+                const scale = Math.min(cellWidth / viewport.width, cellHeight / viewport.height) * 0.95;
+                const scaledViewport = page.getViewport({ scale });
+                
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.width = scaledViewport.width;
+                canvas.height = scaledViewport.height;
+                
+                await page.render({ canvasContext: context, viewport: scaledViewport }).promise;
+                
+                const imgData = canvas.toDataURL('image/jpeg', 0.9);
+                const col = j % cols;
+                const row = Math.floor(j / cols);
+                const x = col * cellWidth;
+                const y = row * cellHeight;
+                
+                doc.addImage(imgData, 'JPEG', x, y, scaledViewport.width, scaledViewport.height);
+                
+                processed++;
+                const progress = Math.round((processed / total) * 100);
+                elements.progressFill.style.width = `${progress}%`;
+                elements.progressText.textContent = `Generating PDF: ${progress}%`;
+            }
+        }
 
         const pdfBlob = doc.output('blob');
-        editedPdfFile = new File([pdfBlob], "edited_output.pdf", { type: 'application/pdf' });
-
-        document.getElementById('pdfEditorModal').style.display = 'none';
-        calculatePagesAndCost(editedPdfFile);
-
-    } catch (error) {
-        showError("Error generating PDF. Please try again.");
-        console.error(error);
-    } finally {
-        elements.progressContainer.style.display = 'none';
-        elements.saveEditedPdf.disabled = false;
-    }
-});
-
+        editedPdfFile = new File([pdfBlob], `edited_${selectedFile.name}`, { type: 'application/pdf' });
+        
+        elements.progressFill.style.width = '100%';
+        elements.progressText.textContent = 'PDF Generated Successfully!';
+        
+        setTimeout(() => {
+            elements.progressContainer.style.display = 'none';
+            document.getElementById('pdfEditorModal').style.display = 'none';
+            elements.saveEditedPdf.disabled = false;
+            calculatePagesAndCost(editedPdfFile);
+        }, 1000);
+        
+         } catch (error) {
+           console.error('Error generating PDF:', error);
+            showError('Failed to generate PDF. Please try again.');
+            elements.progressContainer.style.display = 'none';
+            elements.saveEditedPdf.disabled = false;
+     }
+        });
 
         elements.cancelEditBtn.addEventListener('click', () => {
             document.getElementById('pdfEditorModal').style.display = 'none';
