@@ -23,6 +23,687 @@
             --secondary: #3f37c9;
             --accent: #4895ef;
             --dark: #1a1a2e;
+            --darker: #0e111a;
+            --light: #f8f9fa;
+            --gray: #adb5bd;
+            --success: #4cc9f0;
+            --warning: #f8961e;
+            --danger: #f72585;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--darker);
+            background-image:
+                radial-gradient(at 47% 33%, hsl(210.00, 75%, 40%) 0, transparent 59%),
+                radial-gradient(at 82% 65%, hsl(285.00, 75%, 45%) 0, transparent 55%);
+            color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            overflow: hidden;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: rgba(22, 33, 62, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .header-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 3px rgba(79, 109, 255, 0.5);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            right: 0;
+            top: 45px;
+            border-radius: var(--radius-md);
+            width: 180px;
+            z-index: 1001;
+            display: none;
+            overflow: hidden;
+            max-height: 250px;
+            overflow-y: auto;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .dropdown-menu.show {
+            display: block;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .dropdown-item {
+            padding: 0.6rem 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover {
+            background: rgba(67, 97, 238, 0.2);
+            color: white;
+        }
+
+        .dropdown-item i {
+            width: 16px;
+            text-align: center;
+            color: var(--accent);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0.2rem 0;
+        }
+
+        #appLoginContainer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-logo {
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .logo-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
+        }
+
+        .logo-circle i {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .login-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 2.2rem;
+            color: white;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .login-subtitle {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .login-features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-badge {
+            background: rgba(67, 97, 238, 0.15);
+            color: var(--light);
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            border: 1px solid rgba(67, 97, 238, 0.5);
+        }
+
+        .feature-badge i {
+            font-size: 0.8rem;
+            color: var(--accent);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            outline: none;
+            width: 100%;
+            max-width: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.5);
+        }
+
+        #appContent {
+            display: none;
+            flex: 1;
+            padding-top: 80px;
+            padding-bottom: 60px;
+            width: 100%;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .dashboard-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--light);
+        }
+
+        .balance-card {
+            padding: 0.8rem 1.2rem;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            min-width: 180px;
+        }
+
+        .upload-section {
+            margin: 2rem 0;
+            display: none;
+        }
+
+        .section-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--light);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        .upload-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem 1.5rem;
+            border-radius: var(--radius-lg);
+            border: 2px dashed rgba(79, 109, 255, 0.4);
+            transition: var(--transition);
+            cursor: pointer;
+            margin-bottom: 1rem;
+            max-width: 100%;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary-light);
+            background: rgba(67, 97, 238, 0.1);
+        }
+
+        .upload-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .upload-text {
+            font-weight: 600;
+            color: var(--light);
+            margin-bottom: 0.4rem;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .upload-subtext {
+            color: var(--gray);
+            font-size: 0.85rem;
+            text-align: center;
+            max-width: 300px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+        
+        .service-option {
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            min-height: 180px;
+            position: relative;
+        }
+
+        .service-option:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .service-option.active {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 20px rgba(79, 109, 255, 0.5);
+        }
+
+        .service-name {
+            font-weight: 700;
+            color: var(--light);
+            margin-bottom: 0.4rem;
+        }
+
+        .service-desc {
+            color: var(--gray);
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
+            flex-grow: 1;
+        }
+        
+        .service-price {
+            font-weight: 700;
+            color: var(--primary-light);
+            align-self: flex-end;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light);
+        }
+        
+        .input-field::placeholder {
+            color: var(--gray);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.3);
+        }
+        
+        .cost-display {
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            display: none;
+            max-width: 100%;
+        }
+
+        .cost-label {
+            color: var(--gray);
+        }
+
+        .cost-value {
+            font-weight: 600;
+            color: var(--light);
+        }
+
+        .cost-total {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 0.8rem;
+            margin-top: 0.8rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary-light);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-light);
+            border: 1px solid var(--primary-light);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(79, 109, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .confirmation-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(14, 17, 26, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            display: none;
+        }
+
+        .confirmation-content {
+            padding: 2rem;
+            width: 90%;
+            max-width: 450px;
+            animation: fadeIn 0.3s ease-out;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .confirmation-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--light);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .confirmation-title i {
+            color: var(--primary-light);
+        }
+        
+        .confirmation-label {
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .confirmation-value {
+            font-weight: 600;
+            color: var(--light);
+        }
+
+        .confirmation-total {
+            font-weight: 700;
+            color: var(--primary-light);
+            font-size: 1.1rem;
+        }
+        
+        .footer {
+            background: transparent;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: auto;
+            width: 100%;
+        }
+        
+        /* Apply glass effect to specific components */
+        .balance-card, .service-option, .cost-display, .confirmation-content {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- Other existing styles, largely unchanged --- */
+
+        .cost-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.4rem;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .confirmation-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.6rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .confirmation-buttons {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .confirmation-close {
+            position: absolute;
+            top: 0.8rem;
+            right: 0.8rem;
+            color: var(--gray);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .scanner-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2001;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            display: none;
+        }
+        .scanner-header {
+            color: white;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .scanner-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.4rem;
+        }
+        .scanner-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        #preview {
+            width: 80%;
+            max-width: 400px;
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+        }
+        .scanner-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .error-message {
+            color: var(--danger);
+            background: rgba(247, 37, 133, 0.1);
+            border: 1px solid var(--danger);
+            padding: 0.8rem;
+            border-radius: var(--radius-sm);
+            margin: 0.8rem 0;
+            display: none;
+            max-width: 100%;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        .footer-link:hover {
+            color: white;
+        }
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+        .insufficient-balance {
+            color: var(--danger);
+            font-size: 0.85rem;
+            margin-top: 0.4rem;
+            display: none;
+        }
+        .processing-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --primary-light: #4f6dff;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --dark: #1a1a2e;
             --darker: #16213e;
             --light: #f8f9fa;
             --gray: #6c757d;
@@ -198,8 +879,10 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.1; }
-            100% { transform: scale(1.2); opacity: 0.2; }
+            0% { transform: scale(1);
+ opacity: 0.1; }
+            100% { transform: scale(1.2); opacity: 0.2;
+ }
         }
 
         .login-logo {
@@ -1088,8 +1771,10 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0;
+ transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0);
+ }
         }
 
         .fade-in {
@@ -1104,24 +1789,28 @@
                 <div class="logo-circle">
                     <i class="fas fa-print"></i>
                 </div>
+            
             </div>
             <h1 class="login-title">SmartPrint</h1>
             <p class="login-subtitle">Secure, fast, and convenient digital printing solutions</p>
             <div class="login-features">
                 <div class="feature-badge">
                     <i class="fas fa-bolt"></i>
+                
                     Instant Printing
                 </div>
                 <div class="feature-badge">
                     <i class="fas fa-lock"></i>
                     Secure Uploads
                 </div>
-                <div class="feature-badge">
+   
+                             <div class="feature-badge">
                     <i class="fas fa-wallet"></i>
                     Wallet Payments
                 </div>
             </div>
-            <button id="loginBtn" class="btn btn-primary">
+            <button id="loginBtn" class="btn 
+            btn-primary">
                 <i class="fab fa-google"></i>
                 Continue with Google
             </button>
@@ -1131,6 +1820,7 @@
     <header id="header" class="header" style="display: none;">
         <div class="header-title">
             <i class="fas fa-print logo-icon"></i>
+        
             SmartPrint Portal
         </div>
         <div class="user-menu">
@@ -1139,23 +1829,27 @@
             </div>
             <div class="dropdown-menu" id="userDropdown">
                 <div class="dropdown-item">
-                    <i class="fas fa-user"></i>
+     
+                               <i class="fas fa-user"></i>
                     <span>Profile</span>
                 </div>
                 <div class="dropdown-item">
                     <i class="fas fa-wallet"></i>
+        
                     <span>Wallet Recharge</span>
                 </div>
                 <div class="dropdown-item">
                     <i class="fas fa-history"></i>
                     <span>Transaction History</span>
-                </div>
+           
+                 </div>
                 <div class="dropdown-divider"></div>
                 <div class="dropdown-item" id="logoutBtn">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Logout</span>
                 </div>
-            </div>
+  
+                   </div>
         </div>
     </header>
 
@@ -1164,69 +1858,83 @@
             <div class="dashboard-header">
                 <h2 class="dashboard-title">Printing Dashboard</h2>
                 <div class="balance-card">
+                
                     <i class="fas fa-wallet balance-icon"></i>
                     <div>
                         <div class="balance-label">Your Balance</div>
                         <div class="balance-amount">₹<span id="balanceAmount">0.00</span></div>
                     </div>
-                </div>
+ 
+                               </div>
             </div>
 
             <div id="uploadSection" class="upload-section">
                 <h3 class="section-title">
                     <i class="fas fa-cloud-upload-alt"></i>
+                    
                     Upload Your Document
                 </h3>
                 <div id="uploadArea" class="upload-area">
                     <i class="fas fa-file-upload upload-icon"></i>
                     <div class="upload-text">Drag & drop your file here</div>
-                    <div class="upload-subtext">or click to browse files (PDF only, max 25MB)</div>
+               
+                     <div class="upload-subtext">or click to browse files (PDF only, max 25MB)</div>
                     <input type="file" id="fileInput" name="file" accept="application/pdf" required>
                 </div>
-                <div id="fileNameDisplay" style="display: none; font-weight: 600; color: var(--primary); margin-bottom: 0.8rem; text-align: center;"></div>
+                <div id="fileNameDisplay" style="display: none;
+                font-weight: 600; color: var(--primary); margin-bottom: 0.8rem; text-align: center;"></div>
             </div>
 
             <div class="service-selector">
                 <h3 class="selector-title">
                     <i class="fas fa-tasks"></i>
                     Select Printing Service
-                </h3>
+       
+                 </h3>
                 <div class="service-options">
                     <div class="service-option" data-value="upload">
                         <div class="service-icon">
-                            <i class="fas fa-file-import"></i>
+                           
+                         <i class="fas fa-file-import"></i>
                         </div>
                         <h4 class="service-name">Custom File Upload</h4>
                         <p class="service-desc">Upload your own PDF document for printing</p>
-                        <div class="service-price">₹0.50/page</div>
+               
+                         <div class="service-price">₹0.50/page</div>
                     </div>
                     <div class="service-option" data-value="printFile1">
                         <div class="service-icon">
-                            <i class="fas fa-file-pdf"></i>
+                       
+                     <i class="fas fa-file-pdf"></i>
                         </div>
                         <h4 class="service-name">Standard Document</h4>
                         <p class="service-desc">Print our pre-approved standard document</p>
-                        <div class="service-price">₹0.50/page</div>
+              
+                         <div class="service-price">₹0.50/page</div>
                     </div>
                     <div class="service-option" data-value="printFile2">
                         <div class="service-icon">
-                            <i class="fas fa-file-contract"></i>
+                      
+                      <i class="fas fa-file-contract"></i>
                         </div>
                         <h4 class="service-name">Legal Document</h4>
                         <p class="service-desc">Print our pre-approved legal document</p>
-                        <div class="service-price">₹0.50/page</div>
+             
+                         <div class="service-price">₹0.50/page</div>
                     </div>
                 </div>
             </div>
 
             <div id="pageInput1" class="page-input-container">
                 <label for="pageCount1" class="input-label">Number of Pages to Print</label>
-                <input type="number" id="pageCount1" class="input-field" placeholder="Enter number of pages" min="1">
+    
+                            <input type="number" id="pageCount1" class="input-field" placeholder="Enter number of pages" min="1">
             </div>
 
             <div id="pageInput2" class="page-input-container">
                 <label for="pageCount2" class="input-label">Number of Pages to Print</label>
                 <input type="number" id="pageCount2" class="input-field" placeholder="Enter number of pages" min="1">
+        
             </div>
 
             <div id="costContainer" class="cost-display">
@@ -1234,12 +1942,14 @@
                     <span class="cost-label">Pages</span>
                     <span class="cost-value" id="pagesDisplay">0</span>
                 </div>
-                <div class="cost-row">
+      
+                         <div class="cost-row">
                     <span class="cost-label">Price per Page</span>
                     <span class="cost-value">₹0.50</span>
                 </div>
                 <div class="cost-row cost-total">
-                    <span class="cost-label">Total Cost</span>
+           
+                         <span class="cost-label">Total Cost</span>
                     <span class="cost-value" id="costDisplay">₹0.00</span>
                 </div>
             </div>
@@ -1247,12 +1957,14 @@
             <div id="error" class="error-message"></div>
 
             <div class="action-buttons">
+            
                 <button id="uploadPrintBtn" class="btn btn-primary">
                     <i class="fas fa-paper-plane"></i>
                     Send Print Request
                 </button>
                 <button id="cancelBtn" class="btn btn-secondary">
-                    <i class="fas fa-times"></i>
+              
+                     <i class="fas fa-times"></i>
                     Cancel
                 </button>
             </div>
@@ -1262,13 +1974,15 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-links">
-                <a href="#" class="footer-link">About Us</a>
+     
+                         <a href="#" class="footer-link">About Us</a>
                 <a href="#" class="footer-link">Privacy Policy</a>
                 <a href="#" class="footer-link">Terms of Service</a>
                 <a href="#" class="footer-link">Contact</a>
             </div>
             <div class="footer-copyright">
-                © 2025 SmartPrint Technologies. All rights reserved.
+    
+                            © 2025 SmartPrint Technologies. All rights reserved.
             </div>
         </div>
     </footer>
@@ -1279,18 +1993,21 @@
             <h3 class="confirmation-title">
                 <i class="fas fa-check-circle"></i>
                 Confirm Your Print Request
-            </h3>
+       
+                 </h3>
             <div class="confirmation-details">
                 <div class="confirmation-row">
                     <span class="confirmation-label">Current Balance:</span>
                     <span class="confirmation-value" id="currentBalanceDisplay">₹0.00</span>
                 </div>
-                <div class="confirmation-row">
+     
+                         <div class="confirmation-row">
                     <span class="confirmation-label">Printing Cost:</span>
                     <span class="confirmation-value" id="printingCostDisplay">₹0.00</span>
                 </div>
                 <div class="confirmation-row confirmation-total">
-                    <span class="confirmation-label">New Balance:</span>
+          
+                         <span class="confirmation-label">New Balance:</span>
                     <span class="confirmation-value" id="newBalanceDisplay">₹0.00</span>
                 </div>
                 <div id="insufficientBalanceWarning" class="insufficient-balance">
@@ -1301,13 +2018,15 @@
                 <button id="confirmPrintBtn" class="btn btn-primary" disabled>
                     <i class="fas fa-check"></i>
                     Confirm & Scan QR
-                </button>
+          
+                     </button>
                 <button id="cancelPrintBtn" class="btn btn-secondary">
                     <i class="fas fa-times"></i>
                     Cancel
                 </button>
             </div>
-        </div>
+     
+           </div>
     </div>
 
     <div class="scanner-container" id="scannerContainer">
@@ -1319,7 +2038,8 @@
         <video id="preview"></video>
     </div>
 
-    <div class="processing-overlay" id="processingOverlay">
+    <div class="processing-overlay" 
+    id="processingOverlay">
         <i class="fas fa-spinner fa-spin"></i>
         Processing Transaction...
     </div>
@@ -1329,15 +2049,18 @@
             <i class="fas fa-times confirmation-close" id="editChoiceClose"></i>
             <h3 class="confirmation-title">
                 <i class="fas fa-edit"></i>
-                PDF Processing Option
+              
+                 PDF Processing Option
             </h3>
-            <div class="confirmation-buttons" style="flex-direction: column; gap: 0.8rem;">
+            <div class="confirmation-buttons" style="flex-direction: column;
+            gap: 0.8rem;">
                 <button id="editPdfBtn" class="btn btn-primary">
                     <i class="fas fa-pencil-alt"></i>
                     Edit PDF
                 </button>
                 <button id="useOriginalBtn" class="btn btn-secondary">
-                    <i class="fas fa-file"></i>
+  
+                                     <i class="fas fa-file"></i>
                     Use Original
                 </button>
             </div>
@@ -1346,76 +2069,96 @@
 
     <div class="confirmation-modal editor-modal" id="pdfEditorModal">
         <div class="confirmation-content editor-modal-content">
-            <i class="fas fa-times confirmation-close" id="editorClose"></i>
+  
+                   <i class="fas fa-times confirmation-close" id="editorClose"></i>
             <div class="print-interface">
                 <div class="settings-panel">
                     <h2>Print Settings</h2>
                     <div class="section">
-                        <div class="page-count">Total: <span id="totalPages">0</span> pages</div>
+              
+                         <div class="page-count">Total: <span id="totalPages">0</span> pages</div>
                     </div>
                     <div class="section">
                         <div class="section-title">Layout</div>
+                    
                         <div class="option-group">
                             <div class="radio-option">
                                 <input type="radio" id="portrait" name="layout" checked>
-                                <label for="portrait">Portrait</label>
+                              
+                 <label for="portrait">Portrait</label>
                             </div>
                             <div class="radio-option">
                                 <input type="radio" id="landscape" name="layout">
-                                <label for="landscape">Landscape</label>
+     
+                                         <label for="landscape">Landscape</label>
                             </div>
                         </div>
+                    
                     </div>
                     <div class="section">
                         <div class="section-title">Pages</div>
                         <div class="option-group">
-                            <div class="radio-option">
+                            <div 
+                            class="radio-option">
                                 <input type="radio" id="allPages" name="pages" checked>
                                 <label for="allPages">All</label>
                             </div>
-                            <div class="radio-option">
+   
+                                         <div class="radio-option">
                                 <input type="radio" id="oddPages" name="pages">
                                 <label for="oddPages">Odd pages only</label>
-                            </div>
+    
+                                     </div>
                             <div class="radio-option">
                                 <input type="radio" id="evenPages" name="pages">
-                                <label for="evenPages">Even pages only</label>
+            
+                                     <label for="evenPages">Even pages only</label>
                             </div>
                             <div class="radio-option">
-                                <input type="radio" id="customPages" name="pages">
+                    
+                             <input type="radio" id="customPages" name="pages">
                                 <label for="customPages">Custom range</label>
                             </div>
-                            <input type="text" id="pageRange" class="text-input" placeholder="e.g. 1-5, 8, 11-13" disabled>
+                       
+                     <input type="text" id="pageRange" class="text-input" placeholder="e.g.
+                     1-5, 8, 11-13" disabled>
                         </div>
                     </div>
                     <div class="section">
                         <div class="section-title">Pages per sheet</div>
-                        <div class="pages-per-sheet">
+     
+                                     <div class="pages-per-sheet">
                             <div class="pages-per-sheet-option selected" data-value="1">1</div>
                             <div class="pages-per-sheet-option" data-value="2">2</div>
-                            <div class="pages-per-sheet-option" data-value="4">4</div>
+                   
+                         <div class="pages-per-sheet-option" data-value="4">4</div>
                             <div class="pages-per-sheet-option" data-value="6">6</div>
                             <div class="pages-per-sheet-option" data-value="9">9</div>
-                            <div class="pages-per-sheet-option" data-value="16">16</div>
+                            <div 
+                            class="pages-per-sheet-option" data-value="16">16</div>
                         </div>
                     </div>
                     <div class="button-group">
                         <button class="btn btn-secondary" id="cancelEditBtn">Cancel</button>
-                        <button class="btn btn-primary" id="saveEditedPdf">Save Changes</button>
+       
+                                     <button class="btn btn-primary" id="saveEditedPdf">Save Changes</button>
                     </div>
                 </div>
                 <div class="preview-panel">
                     <h2>Preview</h2>
-                    <div class="preview-controls">
+      
+                                 <div class="preview-controls">
                         <button class="arrow-btn" id="prevSheet">←</button>
                         <span id="sheetNumber">Sheet 1 of 1</span>
                         <button class="arrow-btn" id="nextSheet">→</button>
-                    </div>
+     
+                                   </div>
                     <div class="preview-container" id="previewContainer"></div>
                     <div class="page-count" id="previewPageCount">No pages selected</div>
                     <div class="thumbnail-container" id="thumbnailContainer"></div>
                 </div>
-            </div>
+ 
+                       </div>
         </div>
     </div>
 
@@ -1428,7 +2171,8 @@
 
     <script>
         const firebaseConfig = {
-            apiKey: "AIzaSyD5nB2VkRcG7Rhy_DsbPEstHKY_c6dJMvk",
+         
+           apiKey: "AIzaSyD5nB2VkRcG7Rhy_DsbPEstHKY_c6dJMvk",
             authDomain: "printingsol-9d9a5.firebaseapp.com",
             projectId: "printingsol-9d9a5",
             storageBucket: "printingsol-9d9a5.appspot.com",
@@ -1436,12 +2180,10 @@
             appId: "1:440516264991:web:f8e9eec3dccd8beb3c412a",
             measurementId: "G-M20ZFH5JZ4"
         };
-
         const app = firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
         const { jsPDF } = window.jspdf;
-
         let scanner = null;
         let currentUser = null;
         let userDocRef = null;
@@ -1457,7 +2199,6 @@
         let selectedPages = [];
         let currentPageRange = '';
         let totalPages = 0;
-
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js';
 
         const elements = {
@@ -1468,14 +2209,16 @@
             userCircle: document.getElementById('userCircle'),
             userDropdown: document.getElementById('userDropdown'),
             logoutBtn: document.getElementById('logoutBtn'),
-            fileInput: document.getElementById('fileInput'),
+   
+                     fileInput: document.getElementById('fileInput'),
             uploadArea: document.getElementById('uploadArea'),
             uploadSection: document.getElementById('uploadSection'),
             fileNameDisplay: document.getElementById('fileNameDisplay'),
             pagesDisplay: document.getElementById('pagesDisplay'),
             costDisplay: document.getElementById('costDisplay'),
             costContainer: document.getElementById('costContainer'),
-            errorDiv: document.getElementById('error'),
+            
+                     errorDiv: document.getElementById('error'),
             pageInput1: document.getElementById('pageInput1'),
             pageInput2: document.getElementById('pageInput2'),
             uploadPrintBtn: document.getElementById('uploadPrintBtn'),
@@ -1483,7 +2226,8 @@
             serviceOptions: document.querySelectorAll('.service-option'),
             confirmationModal: document.getElementById('confirmationModal'),
             confirmationClose: document.getElementById('confirmationClose'),
-            confirmPrintBtn: document.getElementById('confirmPrintBtn'),
+        
+                confirmPrintBtn: document.getElementById('confirmPrintBtn'),
             cancelPrintBtn: document.getElementById('cancelPrintBtn'),
             currentBalanceDisplay: document.getElementById('currentBalanceDisplay'),
             printingCostDisplay: document.getElementById('printingCostDisplay'),
@@ -1491,14 +2235,16 @@
             scannerContainer: document.getElementById('scannerContainer'),
             scannerClose: document.getElementById('scannerClose'),
             video: document.getElementById('preview'),
-            balanceAmount: document.getElementById('balanceAmount'),
+    
+                    balanceAmount: document.getElementById('balanceAmount'),
             processingOverlay: document.getElementById('processingOverlay'),
             editPdfBtn: document.getElementById('editPdfBtn'),
             useOriginalBtn: document.getElementById('useOriginalBtn'),
             saveEditedPdf: document.getElementById('saveEditedPdf'),
             prevSheet: document.getElementById('prevSheet'),
             nextSheet: document.getElementById('nextSheet'),
-            sheetNumber: document.getElementById('sheetNumber'),
+            sheetNumber: 
+            document.getElementById('sheetNumber'),
             previewContainer: document.getElementById('previewContainer'),
             pageRange: document.getElementById('pageRange'),
             totalPages: document.getElementById('totalPages'),
@@ -1506,15 +2252,14 @@
             cancelEditBtn: document.getElementById('cancelEditBtn'),
             thumbnailContainer: document.getElementById('thumbnailContainer'),
             progressContainer: document.getElementById('progressContainer'),
-            progressFill: document.getElementById('progressFill'),
+         
+               progressFill: document.getElementById('progressFill'),
             progressText: document.getElementById('progressText')
         };
-
         elements.userCircle.addEventListener('click', function(e) {
             e.stopPropagation();
             elements.userDropdown.classList.toggle('show');
         });
-
         document.addEventListener('click', function() {
             if (elements.userDropdown.classList.contains('show')) {
                 elements.userDropdown.classList.remove('show');
@@ -1523,40 +2268,38 @@
                 elements.confirmationModal.style.display = 'none';
             }
         });
-
         elements.userDropdown.addEventListener('click', function(e) {
             e.stopPropagation();
         });
-
         elements.logoutBtn.addEventListener('click', function() {
             if (confirm("Are you sure you want to logout?")) {
                 auth.signOut();
             }
         });
-
         elements.confirmationClose.addEventListener('click', function() {
             elements.confirmationModal.style.display = 'none';
         });
-
         elements.cancelPrintBtn.addEventListener('click', function() {
             elements.confirmationModal.style.display = 'none';
         });
-
         elements.serviceOptions.forEach(option => {
             option.addEventListener('click', function() {
                 elements.serviceOptions.forEach(opt => opt.classList.remove('active'));
                 this.classList.add('active');
                 selectedAction = this.getAttribute('data-value');
                 
+                
                 if (selectedAction === 'upload') {
                     elements.pageInput1.style.display = 'none';
                     elements.pageInput2.style.display = 'none';
                     elements.uploadSection.style.display = 'block';
                     elements.fileNameDisplay.style.display = 'none';
-                    elements.costContainer.style.display = 'none';
+        
+                            elements.costContainer.style.display = 'none';
                 } else if (selectedAction === 'printFile1') {
                     elements.pageInput1.style.display = 'block';
                     elements.pageInput2.style.display = 'none';
+                    
                     elements.uploadSection.style.display = 'none';
                     elements.fileNameDisplay.style.display = 'none';
                     elements.costContainer.style.display = 'none';
@@ -1569,7 +2312,7 @@
                 }
                 
                 elements.errorDiv.style.display = 'none';
-            });
+        });
         });
 
         elements.uploadArea.addEventListener('click', () => elements.fileInput.click());
@@ -1579,12 +2322,10 @@
             elements.uploadArea.style.borderColor = 'var(--primary)';
             elements.uploadArea.style.backgroundColor = 'rgba(67, 97, 238, 0.05)';
         });
-        
         elements.uploadArea.addEventListener('dragleave', () => {
             elements.uploadArea.style.borderColor = 'rgba(67, 97, 238, 0.2)';
             elements.uploadArea.style.backgroundColor = 'white';
         });
-        
         elements.uploadArea.addEventListener('drop', (e) => {
             e.preventDefault();
             elements.uploadArea.style.borderColor = 'rgba(67, 97, 238, 0.2)';
@@ -1592,10 +2333,10 @@
             
             if (e.dataTransfer.files.length) {
                 elements.fileInput.files = e.dataTransfer.files;
-                handleFileSelection();
+          
+                     handleFileSelection();
             }
         });
-        
         elements.fileInput.addEventListener('change', handleFileSelection);
         
         async function handleFileSelection() {
@@ -1616,9 +2357,9 @@
                 updateCostDisplay(parseInt(this.value));
             } else {
                 elements.costContainer.style.display = 'none';
-            }
+ 
+                       }
         });
-
         document.getElementById('pageCount2').addEventListener('input', function() {
             if (this.value && this.value > 0) {
                 updateCostDisplay(parseInt(this.value));
@@ -1626,7 +2367,6 @@
                 elements.costContainer.style.display = 'none';
             }
         });
-
         function updateCostDisplay(pages) {
             currentPrintingCost = pages * 0.50;
             elements.pagesDisplay.textContent = pages;
@@ -1646,41 +2386,46 @@
             elements.fileNameDisplay.style.display = 'none';
             document.getElementById('pageCount1').value = '';
             document.getElementById('pageCount2').value = '';
-            elements.costContainer.style.display = 'none';
+   
+                     elements.costContainer.style.display = 'none';
             elements.errorDiv.style.display = 'none';
             elements.serviceOptions.forEach(opt => opt.classList.remove('active'));
             selectedAction = null;
             elements.uploadSection.style.display = 'none';
             elements.pageInput1.style.display = 'none';
             elements.pageInput2.style.display = 'none';
-            if (document.getElementById('pdfEditorModal').style.display === 'flex') {
+     
+                   if (document.getElementById('pdfEditorModal').style.display === 'flex') {
                 document.getElementById('pdfEditorModal').style.display = 'none';
             }
         });
-
         auth.onAuthStateChanged(async (user) => {
             if (user) {
                 currentUser = user;
                 userDocRef = db.collection('users').doc(user.uid);
                 
                 const doc = await userDocRef.get();
-                if (!doc.exists) {
+           
+                 if (!doc.exists) {
                     await userDocRef.set({ 
                         balance: 100,
                         email: user.email,
-                        name: user.displayName || "User",
+                     
+                       name: user.displayName || "User",
                         createdAt: firebase.firestore.FieldValue.serverTimestamp()
                     });
                 }
 
                 userDocRef.onSnapshot((doc) => {
-                    const userData = doc.data();
+               
+                     const userData = doc.data();
                     elements.balanceAmount.textContent = userData.balance.toFixed(2);
                 });
 
                 elements.appLoginContainer.style.display = 'none';
                 elements.header.style.display = 'flex';
-                elements.appContent.style.display = 'block';
+                elements.appContent.style.display = 
+                'block';
                 
                 if (user.displayName) {
                     const initials = user.displayName.split(' ').map(n => n[0]).join('').toUpperCase();
@@ -1693,14 +2438,12 @@
                 elements.appContent.style.display = 'none';
             }
         });
-
         elements.loginBtn.addEventListener('click', () => {
             const provider = new firebase.auth.GoogleAuthProvider();
             auth.signInWithPopup(provider).catch((error) => {
                 showError('Failed to sign in. Please try again.');
             });
         });
-
         elements.uploadPrintBtn.addEventListener('click', function () {
             if (!currentUser) {
                 showError("Please sign in first.");
@@ -1710,7 +2453,8 @@
             if (!selectedAction) {
 method: 'POST',
                 showError("Please select a service first.");
-                return;
+ 
+                               return;
             }
 
             if (selectedAction === 'upload' && !selectedFile) {
@@ -1718,27 +2462,31 @@ method: 'POST',
                 return;
             }
 
-            if ((selectedAction === 'printFile1' || selectedAction === 'printFile2') && 
+      
+                     if ((selectedAction === 'printFile1' || selectedAction === 'printFile2') && 
                 (!document.getElementById(selectedAction === 'printFile1' ? 'pageCount1' : 'pageCount2').value)) {
                 showError("Please enter a valid page count.");
                 return;
             }
 
             showConfirmationModal();
-        });
+ 
+               });
 
         function showConfirmationModal() {
             userDocRef.get().then((doc) => {
                 const currentBalance = doc.data().balance;
                 elements.currentBalanceDisplay.textContent = `₹${currentBalance.toFixed(2)}`;
                 elements.printingCostDisplay.textContent = `₹${currentPrintingCost.toFixed(2)}`;
-                const newBalance = currentBalance - currentPrintingCost;
+                const newBalance = currentBalance - 
+                currentPrintingCost;
                 elements.newBalanceDisplay.textContent = `₹${newBalance.toFixed(2)}`;
 
                 if (newBalance < 0) {
                     elements.newBalanceDisplay.style.color = 'var(--danger)';
                     document.getElementById('insufficientBalanceWarning').style.display = 'block';
-                    elements.confirmPrintBtn.disabled = true;
+                  
+                 elements.confirmPrintBtn.disabled = true;
                 } else {
                     elements.newBalanceDisplay.style.color = 'var(--primary)';
                     document.getElementById('insufficientBalanceWarning').style.display = 'none';
@@ -1746,7 +2494,7 @@ method: 'POST',
                 }
                 
                 elements.confirmationModal.style.display = 'flex';
-            });
+        });
         }
 
         elements.confirmPrintBtn.addEventListener('click', async function() {
@@ -1755,75 +2503,85 @@ method: 'POST',
                 elements.confirmationModal.style.display = 'none';
 
                 await db.runTransaction(async (transaction) => {
-                    const doc = await transaction.get(userDocRef);
+                   
+                 const doc = await transaction.get(userDocRef);
                     const currentBalance = doc.data().balance;
                     
                     if (currentBalance < currentPrintingCost) {
                         throw new Error('Insufficient balance');
-                    }
+ 
+                                       }
                     
                     transaction.update(userDocRef, {
                         balance: currentBalance - currentPrintingCost
-                    });
+             
+                   });
                 });
 
                 elements.processingOverlay.style.display = 'none';
                 startQRScanner((sanitizedUrl) => {
                     processPrintRequest(sanitizedUrl);
                 });
-
             } catch (error) {
                 elements.processingOverlay.style.display = 'none';
                 showError(error.message || "Transaction failed. Please try again.");
             }
         });
-
         function processPrintRequest(sanitizedUrl) {
             const fileToPrint = editedPdfFile || selectedFile;
-            
             if (selectedAction === 'upload') {
                 currentUser.getIdToken(true).then((idToken) => {
                     const formData = new FormData();
                     formData.append('file', fileToPrint);
                     formData.append('token', idToken);
+            
                     formData.append('uid', currentUser.uid);
                     
                     elements.uploadPrintBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
                     elements.uploadPrintBtn.disabled = true;
                     
-                    fetch(`${sanitizedUrl}/upload`, {
+   
+                                 fetch(`${sanitizedUrl}/upload`, {
                         method: 'POST',
                         body: formData
                     })
+            
                     .then(response => response.text())
                     .then(data => {
                         alert(data);
                         resetButtonState();
-                    })
+                    
+            })
                     .catch(error => {
-                        showError("Error uploading file. Please try again.");
+                        showError("Error uploading file.
+            Please try again.");
                         resetButtonState();
                     });
                 }).catch(error => {
                     showError("Authentication error. Please sign in again.");
-                });
+           
+                 });
             } else {
                 const pageCount = document.getElementById(selectedAction === 'printFile1' ? 'pageCount1' : 'pageCount2').value;
                 currentUser.getIdToken(true).then((idToken) => {
                     elements.uploadPrintBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            
                     elements.uploadPrintBtn.disabled = true;
                     
                     fetch(`${sanitizedUrl}/print_${selectedAction}`, {
                         method: 'POST',
+                        
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ 
                             page_count: pageCount,
                             token: idToken,
+            
                             uid: currentUser.uid,
                             user_email: currentUser.email
                         })
                     })
-                    .then(response => response.text())
+          
+                      .then(response => response.text())
                     .then(data => {
                         alert(data);
                         resetButtonState();
@@ -1832,7 +2590,7 @@ method: 'POST',
                         showError("Error processing request. Please try again.");
                         resetButtonState();
                     });
-                }).catch(error => {
+            }).catch(error => {
                     showError("Authentication error. Please sign in again.");
                 });
             }
@@ -1856,34 +2614,35 @@ method: 'POST',
                 mirror: false,
                 backgroundScan: false
             });
-
             scanner.addListener('scan', function(content) {
                 const sanitizedUrl = content.match(/https?:\/\/[^\s]+/)?.[0];
                 if (sanitizedUrl) {
                     scanner.stop();
                     elements.scannerContainer.style.display = 'none';
-                    callback(sanitizedUrl);
+                   
+                 callback(sanitizedUrl);
                 } else {
                     showError('Invalid QR code. Please scan a valid URL.');
                 }
             });
-
             Instascan.Camera.getCameras().then(cameras => {
                 if (cameras.length > 0) {
                     const backCamera = cameras.find(c => c.name.toLowerCase().includes('back'));
                     const environmentCamera = cameras.find(c => c.name.toLowerCase().includes('environment'));
                     const selectedCamera = backCamera || environmentCamera || cameras[0];
-                    
+ 
+                                   
                     scanner.start(selectedCamera).catch(error => {
                         showError('Camera access denied. Please enable camera permissions.');
                     });
-                } else {
+         
+               } else {
                     showError('No cameras found on this device.');
                 }
             }).catch(error => {
                 showError('Error accessing camera: ' + error.message);
             });
-        }
+            }
 
         elements.scannerClose.addEventListener('click', function() {
             if (scanner) {
@@ -1891,16 +2650,15 @@ method: 'POST',
             }
             elements.scannerContainer.style.display = 'none';
         });
-
         document.addEventListener('DOMContentLoaded', function() {
             const animatedElements = document.querySelectorAll('.service-option, .upload-area, .btn');
             animatedElements.forEach((el, index) => {
                 el.style.opacity = '0';
                 el.style.transform = 'translateY(20px)';
                 el.style.animation = `fadeIn 0.5s ease-out ${index * 0.1}s forwards`;
-            });
+      
+                 });
         });
-
         function showEditChoiceModal() {
             document.getElementById('editChoiceModal').style.display = 'flex';
         }
@@ -1910,12 +2668,10 @@ method: 'POST',
             document.getElementById('pdfEditorModal').style.display = 'flex';
             await initializePdfEditor(selectedFile);
         });
-
         elements.useOriginalBtn.addEventListener('click', () => {
             document.getElementById('editChoiceModal').style.display = 'none';
             calculatePagesAndCost(selectedFile);
         });
-
         async function initializePdfEditor(file) {
             const reader = new FileReader();
             reader.onload = async () => {
@@ -1927,7 +2683,7 @@ method: 'POST',
                 updatePreview();
             };
             reader.readAsArrayBuffer(file);
-        }
+            }
 
         function generateThumbnails() {
             const container = document.getElementById('thumbnailContainer');
@@ -1943,24 +2699,25 @@ method: 'POST',
                     const viewport = page.getViewport({ scale: 0.3 });
                     const canvas = document.createElement('canvas');
                     const context = canvas.getContext('2d');
+                    
                     canvas.height = viewport.height;
                     canvas.width = viewport.width;
                     
                     thumb.innerHTML = '';
                     thumb.appendChild(canvas);
-                    page.render({ canvasContext: context, viewport });
+              
+                     page.render({ canvasContext: context, viewport });
                 });
-                
                 thumb.addEventListener('click', () => {
                     document.querySelectorAll('.page-thumbnail').forEach(t => t.classList.remove('selected'));
                     thumb.classList.add('selected');
                     document.getElementById('customPages').checked = true;
                     currentPageRange = i.toString();
-                    document.getElementById('pageRange').value = currentPageRange;
+           
+                     document.getElementById('pageRange').value = currentPageRange;
                     document.getElementById('pageRange').disabled = false;
                     updatePreview();
                 });
-                
                 container.appendChild(thumb);
             }
         }
@@ -1990,7 +2747,8 @@ method: 'POST',
             const canvas = document.createElement('canvas');
             const context = canvas.getContext('2d');
             
-            const pageWidth = currentLayout === 'portrait' ? 794 : 1123;
+            const pageWidth = currentLayout === 'portrait' ?
+            794 : 1123;
             const pageHeight = currentLayout === 'portrait' ? 1123 : 794;
             canvas.width = pageWidth * 1.5;
             canvas.height = pageHeight * 1.5;
@@ -2002,7 +2760,6 @@ method: 'POST',
             const rows = Math.ceil(currentPagesPerSheet / cols);
             const cellWidth = (pageWidth * 1.5) / cols;
             const cellHeight = (pageHeight * 1.5) / rows;
-
             for (let i = 0; i < chunk.length; i++) {
                 const page = await pdfDoc.getPage(chunk[i]);
                 const viewport = page.getViewport({ scale: 1 });
@@ -2013,7 +2770,6 @@ method: 'POST',
                 const tempContext = tempCanvas.getContext('2d');
                 tempCanvas.width = scaledViewport.width;
                 tempCanvas.height = scaledViewport.height;
-                
                 await page.render({ canvasContext: tempContext, viewport: scaledViewport }).promise;
                 
                 const col = i % cols;
@@ -2049,13 +2805,13 @@ method: 'POST',
                 if (pages.length === 0) pages = [1];
             }
             return pages;
-        }
+            }
 
         function updateNavigation(total) {
             elements.sheetNumber.textContent = `Sheet ${currentSheetIndex + 1} of ${total}`;
             elements.prevSheet.disabled = currentSheetIndex === 0;
             elements.nextSheet.disabled = currentSheetIndex === total - 1 || total === 0;
-        }
+            }
 
         document.querySelectorAll('.pages-per-sheet-option').forEach(option => {
             option.addEventListener('click', function() {
@@ -2063,41 +2819,36 @@ method: 'POST',
                 this.classList.add('selected');
                 currentPagesPerSheet = parseInt(this.dataset.value);
                 updatePreview();
+        
             });
         });
-
         document.querySelectorAll('input[name="layout"]').forEach(radio => {
             radio.addEventListener('change', function() {
                 currentLayout = this.id === 'landscape' ? 'landscape' : 'portrait';
                 updatePreview();
             });
         });
-
         document.querySelectorAll('input[name="pages"]').forEach(radio => {
             radio.addEventListener('change', function() {
                 document.getElementById('pageRange').disabled = this.id !== 'customPages';
                 updatePreview();
             });
         });
-
         document.getElementById('pageRange').addEventListener('input', function() {
             updatePreview();
         });
-
         elements.prevSheet.addEventListener('click', () => {
             if (currentSheetIndex > 0) {
                 currentSheetIndex--;
                 updatePreview();
             }
         });
-
         elements.nextSheet.addEventListener('click', () => {
             if (currentSheetIndex < totalSheets - 1) {
                 currentSheetIndex++;
                 updatePreview();
             }
         });
-
         elements.saveEditedPdf.addEventListener('click', async () => {
     elements.progressContainer.style.display = 'block';
     elements.progressFill.style.width = '0%';
@@ -2110,7 +2861,8 @@ method: 'POST',
             orientation: currentLayout,
             unit: 'mm',
             format: 'a4'
-        });
+   
+             });
 
         const pageWidth = currentLayout === 'landscape' ? 297 : 210;
         const pageHeight = currentLayout === 'landscape' ? 210 : 297;
@@ -2119,6 +2871,7 @@ method: 'POST',
         let rows = Math.ceil(currentPagesPerSheet / cols);
         
         const cellWidth = pageWidth / cols;
+        
         const cellHeight = pageHeight / rows;
         
         let processed = 0;
@@ -2130,7 +2883,6 @@ method: 'POST',
             }
             
             const chunk = pages.slice(i, i + currentPagesPerSheet);
-            
             for (let j = 0; j < chunk.length; j++) {
                 const page = await pdfDoc.getPage(chunk[j]);
                 const viewport = page.getViewport({ scale: 1 });
@@ -2141,7 +2893,6 @@ method: 'POST',
                 const context = canvas.getContext('2d');
                 canvas.width = scaledViewport.width;
                 canvas.height = scaledViewport.height;
-                
                 await page.render({ canvasContext: context, viewport: scaledViewport }).promise;
                 
                 const imgData = canvas.toDataURL('image/jpeg', 0.9);
@@ -2149,7 +2900,6 @@ method: 'POST',
                 const row = Math.floor(j / cols);
                 const x = col * cellWidth;
                 const y = row * cellHeight;
-                
                 doc.addImage(imgData, 'JPEG', x, y, scaledViewport.width, scaledViewport.height);
                 
                 processed++;
@@ -2164,20 +2914,18 @@ method: 'POST',
         
         elements.progressFill.style.width = '100%';
         elements.progressText.textContent = 'PDF Generated Successfully!';
-        
         setTimeout(() => {
             elements.progressContainer.style.display = 'none';
             document.getElementById('pdfEditorModal').style.display = 'none';
             elements.saveEditedPdf.disabled = false;
             calculatePagesAndCost(editedPdfFile);
         }, 1000);
-        
-         } catch (error) {
+        } catch (error) {
            console.error('Error generating PDF:', error);
-            showError('Failed to generate PDF. Please try again.');
+           showError('Failed to generate PDF. Please try again.');
             elements.progressContainer.style.display = 'none';
             elements.saveEditedPdf.disabled = false;
-     }
+            }
         });
 
         elements.cancelEditBtn.addEventListener('click', () => {
@@ -2187,7 +2935,8 @@ method: 'POST',
             editedPdfFile = null;
             elements.fileNameDisplay.style.display = 'none';
             elements.costContainer.style.display = 'none';
-        });
+    
+            });
 
         document.getElementById('editorClose').addEventListener('click', () => {
             document.getElementById('pdfEditorModal').style.display = 'none';
@@ -2196,6 +2945,7 @@ method: 'POST',
             editedPdfFile = null;
             elements.fileNameDisplay.style.display = 'none';
             elements.costContainer.style.display = 'none';
+        
         });
 
         document.getElementById('editChoiceClose').addEventListener('click', () => {
@@ -2206,7 +2956,6 @@ method: 'POST',
             elements.fileNameDisplay.style.display = 'none';
             elements.costContainer.style.display = 'none';
         });
-
         async function calculatePagesAndCost(file) {
             try {
                 const reader = new FileReader();
@@ -2230,13 +2979,12 @@ method: 'POST',
                 scanner.stop();
             }
         });
-
         window.addEventListener('resize', () => {
             const preview = elements.video;
             if (preview && elements.scannerContainer.style.display === 'flex') {
                 preview.style.width = Math.min(window.innerWidth * 0.8, 400) + 'px';
             }
         });
-    </script>
+        </script>
 </body>
 </html>
